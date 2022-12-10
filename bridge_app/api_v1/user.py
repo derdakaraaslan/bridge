@@ -2,7 +2,8 @@
 from django.forms import ImageField
 from ..models import User
 from . import api
-from ninja import NinjaAPI
+from uuid import UUID
+from .schemas import UserSchemaIn
 
 '''
 @api.get("/add")
@@ -11,8 +12,13 @@ def add(request, a: int, b: int):
 '''
 
 
-@api.get("/User/{name}")
-def createUser(request, name, surname, password):
-    proc = User.objects.create(name=name, surname=surname, password=password)
-    proc.save
-    return 200, {"name": proc.name, "surname": proc.surname}
+@api.post("/users", tags=["User"], response={200: UUID, 400: str, 403: str})
+def create(request, payload: UserSchemaIn):
+    if User.objects.filter(email=payload.dict()["email"]).exists():
+        return 400, {"message": "Mail adresi zaten kayıtlı"}
+
+    data = payload.dict()
+    object = User(**data)
+    object.save()
+
+    return 200, {"message": "Kullanıcı başarıyla oluşturuldu", "id": object.id}

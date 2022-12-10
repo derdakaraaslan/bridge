@@ -1,17 +1,17 @@
 from datetime import date
 from ninja import ModelSchema
-from ...models import User
+from ...models import AppUser
 
 
-class UserSchemaOut(ModelSchema):
+class AppUserSchemaOut(ModelSchema):
 
     class Config:
-        model = User
+        model = AppUser
         model_exclude = ['password']
 
 
-class UserSchemaIn(ModelSchema):
+class AppUserSchemaIn(ModelSchema):
 
     class Config:
-        model = User
+        model = AppUser
         model_exclude = ["id", "is_active"]
