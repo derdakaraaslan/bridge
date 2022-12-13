@@ -10,13 +10,8 @@ from django.db.utils import IntegrityError
 from . import User
 
 
-class AppUser(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    password = models.TextField()
-    first_name = models.TextField()
-    last_name = models.TextField()
-    email = models.TextField()
-    is_active = models.BooleanField(default=True)
+class AppUser(User):
+
     is_disabled = models.BooleanField(default=False)
 
     class Meta:

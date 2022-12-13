@@ -19,6 +19,7 @@ def create(request, payload: UserSchemaIn):
 
     data = payload.dict()
     object = User(**data)
+    object.set_password(payload.password)
     object.save()
 
     return 200, {"message": "Kullanıcı başarıyla oluşturuldu", "id": object.id}

@@ -14,4 +14,4 @@ class UserSchemaIn(ModelSchema):
 
     class Config:
         model = User
-        model_exclude = ["id", "is_active"]
+        model_exclude = ["user_permissions", "id", "last_login", "date_joined"]

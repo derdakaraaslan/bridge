@@ -11,4 +11,4 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(AppUser)
 class AppUserAdmin(admin.ModelAdmin):
-    list_display = ['id', "first_name"]
+    list_display = ['id', "first_name", "username", "email", "password"]
