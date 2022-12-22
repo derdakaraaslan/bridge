@@ -1,5 +1,3 @@
-
-from django.forms import ImageField
 from ..models import User
 from . import api
 from uuid import UUID

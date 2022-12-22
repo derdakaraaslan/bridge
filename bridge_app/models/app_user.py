@@ -12,13 +12,11 @@ from . import User
 import base64
 from PIL import Image
 import PIL
-import numpy as np
 
 
 class AppUser(User):
-
     is_disabled = models.BooleanField(default=False)
-    profile_photo = models.ImageField(blank=True)
+    profile_photo = models.ImageField(blank=True, upload_to='profile_photos')
     
     def save(self, *args, **kwargs):
         super(AppUser, self).save(*args, **kwargs)
@@ -28,7 +26,7 @@ class AppUser(User):
             hpercent = (base_height / float(image.size[1]))
             wsize = int((float(image.size[0]) * float(hpercent)))
             image = image.resize((wsize, base_height), PIL.Image.ANTIALIAS)
-            image.save(f'./media/{self.id}.jpg')
+            image.save(f'./media/profile_photos/{self.id}.jpg')
             os.remove(f"./media/{self.profile_photo}") 
         else:
             try:

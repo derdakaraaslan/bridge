@@ -1,10 +1,8 @@
 from typing import List
-from django.forms import ImageField
 from ..models import AppUser
 from . import api
 from uuid import UUID
 from .schemas import AppUserSchemaIn, AppUserSchemaOut, CreateResponseMessage, ResponseMessage, SearchSchema
-from ninja.pagination import paginate
 
 '''
 @api.get("/add")
@@ -15,18 +13,23 @@ def add(request, a: int, b: int):
 
 @api.post("/app_users", tags=["App User"], response={200: CreateResponseMessage, 400: ResponseMessage, 403: ResponseMessage})
 def create(request, payload: AppUserSchemaIn):
-
+   
     try: 
         if AppUser.objects.filter(email=payload.dict()["email"]).exists():
             return 400, {"message": "Bu mail adresi zaten kayıtlı."}
+        
         data = payload.dict()
-
+        
         username = AppUser.objects.filter(
             first_name=data["first_name"], last_name=data["last_name"])
         object = AppUser(**data)
+        
         object.username = data["first_name"]+data["last_name"]+str(len(username)+1)
+        
         object.set_password(payload.password)
+        print(object)
         object.save()
+        
         return 200, {"message": "Kullanıcı başarıyla oluşturuldu.", "id": object.id}
 
     except Exception:
