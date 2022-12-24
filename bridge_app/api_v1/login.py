@@ -10,7 +10,6 @@ def app_user(request, payload: AppUserSchemaLogin):
         user = AppUser.objects.get(email=payload.email, is_active=True)
 
         if user.check_password(payload.password):
-            user.profile_photo = user.get_base64_profile_photo
             return 200, user
         raise AppUser.DoesNotExist
     except AppUser.DoesNotExist:
