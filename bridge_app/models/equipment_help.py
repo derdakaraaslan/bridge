@@ -19,6 +19,7 @@ class EquipmentHelp(models.Model):
     share_date = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
     equipment_photo = models.ImageField(blank=True, upload_to='equipments')
+    phone_number = models.CharField(max_length=13, default="+905555555555")
     
     def save(self, *args, **kwargs):
         super(EquipmentHelp, self).save(*args, **kwargs)

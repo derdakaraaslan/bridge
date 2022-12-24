@@ -2,7 +2,7 @@
 # Created by https://www.toptal.com/developers/gitignore/api/django,visualstudiocode,elasticbeanstalk
 # Edit at https://www.toptal.com/developers/gitignore?templates=django,visualstudiocode,elasticbeanstalk
 
-manage.py
+./manage.py
 
 ### Django ###
 *.log

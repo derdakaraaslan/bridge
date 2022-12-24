@@ -10,4 +10,5 @@ from django.db.utils import IntegrityError
 class EquipmentType(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     name = models.CharField(max_length=200)
+    is_active = models.BooleanField(default= True)
     

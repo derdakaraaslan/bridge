@@ -11,15 +11,14 @@ def add(request, a: int, b: int):
 '''
 
 
-@api.post("/equipment_help", tags=["Equipment Help"], response={200: CreateResponseMessage, 400: ResponseMessage, 403: ResponseMessage})
+@api.post("/equipment_help/create", tags=["Equipment Help"], response={200: CreateResponseMessage, 400: ResponseMessage, 403: ResponseMessage})
 def create(request, payload: EquipmentHelpSchemaIn):
    
     try: 
         
         data = payload.dict()
-        print(data["owner"]["id"])
-        print(data)
         object = EquipmentHelp()
+        object.title = data["title"]
         object.comment = data["comment"]
         object.equipment = EquipmentType.objects.get(pk=data["equipment"])
         object.owner = AppUser.objects.get(pk=data["owner"]["id"]) 
