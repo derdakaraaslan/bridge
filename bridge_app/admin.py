@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, AppUser, EquipmentType, EquipmentHelp
+from .models import User, AppUser, EquipmentType, EquipmentHelp, CompanionRequest
 
 # Register your models here.
 
@@ -20,3 +20,7 @@ class EquipmentTypeAdmin(admin.ModelAdmin):
 @admin.register(EquipmentHelp)
 class EquipmentHelpAdmin(admin.ModelAdmin):
     list_display = ['id', "owner", "title", "share_date"]
+    
+@admin.register(CompanionRequest)
+class CompanionRequestAdmin(admin.ModelAdmin):
+    list_display = ['id', "owner","companion",  "date"]

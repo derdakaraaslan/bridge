@@ -4,3 +4,4 @@ from . import equipment_help
 from . import login
 from . import user
 from . import equipment
+from . import companion_request
