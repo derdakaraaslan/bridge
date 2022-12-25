@@ -23,4 +23,4 @@ class EquipmentHelpAdmin(admin.ModelAdmin):
     
 @admin.register(CompanionRequest)
 class CompanionRequestAdmin(admin.ModelAdmin):
-    list_display = ['id', "owner","companion",  "date"]
+    list_display = ['id', "owner","companion",  "date", "title"]

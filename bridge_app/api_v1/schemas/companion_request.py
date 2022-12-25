@@ -12,10 +12,9 @@ class CompanionRequestSchemaUser(ModelSchema):
 
 class CompanionRequestSchemaOut(ModelSchema):
     owner: CompanionRequestSchemaUser
-    companion: CompanionRequestSchemaUser
     class Config:
         model = CompanionRequest
-        model_fields = "__all__"
+        model_exclude = ["companion"]
 
 
 class CompanionRequestSchemaIn(ModelSchema):

@@ -23,6 +23,7 @@ def create(request, payload: CompanionRequestSchemaIn):
         object.finish_latitude = data["finish_latitude"]
         object.finish_longitude = data["finish_longitude"]
         object.date = data["date"]
+        object.title = data["title"]
         object.comment = data["comment"]
         object.save()
         return 200, {"message": "Refakatçi yardım talebi başarıyla oluşturuldu.", "id": object.id}

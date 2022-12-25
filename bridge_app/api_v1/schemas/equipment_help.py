@@ -4,7 +4,13 @@ from ...models import EquipmentHelp, AppUser, EquipmentType
 from . import AppUserSchemaOut, AppUserSchemaIn
 
 
-class EquipmentHelpSchemaUser(ModelSchema):
+class EquipmentHelpSchemaUserOut(ModelSchema):
+
+    class Config:
+        model = AppUser
+        model_fields = ["id", "avatar_id"]
+        
+class EquipmentHelpSchemaUserIn(ModelSchema):
 
     class Config:
         model = AppUser
@@ -17,7 +23,7 @@ class EquipmentHelpSchemaEquipmentType(ModelSchema):
         model_exclude = ["is_active"]
 
 class EquipmentHelpSchemaOut(ModelSchema):
-    owner: EquipmentHelpSchemaUser
+    owner: EquipmentHelpSchemaUserOut
     equipment: EquipmentHelpSchemaEquipmentType
     class Config:
         model = EquipmentHelp
@@ -25,7 +31,7 @@ class EquipmentHelpSchemaOut(ModelSchema):
 
 
 class EquipmentHelpSchemaIn(ModelSchema):
-    owner: EquipmentHelpSchemaUser
+    owner: EquipmentHelpSchemaUserIn
     class Config:
         model = EquipmentHelp
         model_exclude = ["id", "is_active", "share_date", "equipment_photo"]
