@@ -21,7 +21,8 @@ def create(request, payload: EquipmentHelpSchemaIn):
         object.title = data["title"]
         object.comment = data["comment"]
         object.equipment = EquipmentType.objects.get(pk=data["equipment"])
-        object.owner = AppUser.objects.get(pk=data["owner"]["id"]) 
+        object.owner = AppUser.objects.get(pk=data["owner"]["id"])
+        object.phone_number =  data["phone_number"]
         object.save()
         return 200, {"message": "Ekipman paylaşımı başarıyla oluşturuldu.", "id": object.id}
 

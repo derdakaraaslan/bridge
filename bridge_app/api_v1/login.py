@@ -28,7 +28,7 @@ def app_user(request, payload: AppUserSchemaForgotPassword):
         send_mail(
             'Bridge Şifre Sıfırlama İsteği',
             f'Yeni şifreniz: {password}',
-            from_email='7derbia@gmail.com',
+            from_email='Bridge <7derbia@gmail.com>',
             recipient_list=[payload.email],
             fail_silently=False,
         )
