@@ -1,15 +1,16 @@
-from .schemas import AppUserSchemaLogin, AppUserSchemaOut, ResponseMessage, AppUserSchemaForgotPassword
+from .schemas import AppUserSchemaLogin, AppUserSchemaOut, ResponseMessage, AppUserSchemaForgotPassword,AppUserSchemaOutLogin
 from ..models import AppUser
 from . import api
 from django.core.mail import send_mail
+from rest_framework.authtoken.models import Token
 
 
-@api.post("/login/app_user", tags=["Login"], response={200: AppUserSchemaOut, 400: ResponseMessage, 403: ResponseMessage}, auth=None)
+@api.post("/login/app_user", tags=["Login"], response={200: AppUserSchemaOutLogin, 400: ResponseMessage, 403: ResponseMessage}, auth=None)
 def app_user(request, payload: AppUserSchemaLogin):
     try:
         user = AppUser.objects.get(email=payload.email, is_active=True)
-
         if user.check_password(payload.password):
+            user.token = Token.objects.get_or_create(user=user)[0].key
             return 200, user
         raise AppUser.DoesNotExist
     except AppUser.DoesNotExist:

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    "rest_framework.authtoken",
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bridge_app',
@@ -127,7 +128,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-
+AUTH_USER_MODEL = 'bridge_app.User'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
@@ -148,3 +149,10 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = '7derbia@gmail.com'
 EMAIL_HOST_PASSWORD = 'gphiguvtsqstlogp'
 EMAIL_PORT = 587
+
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}

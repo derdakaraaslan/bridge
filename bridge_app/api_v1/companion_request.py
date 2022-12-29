@@ -2,7 +2,8 @@ from typing import List
 from ..models import CompanionRequest, AppUser
 from . import api
 from uuid import UUID
-from .schemas import CompanionRequestSchemaIn, CompanionRequestSchemaOut, CreateResponseMessage, ResponseMessage, SearchSchema
+from .schemas import  CompanionRequestSchemaIn, CompanionRequestSchemaOut, CreateResponseMessage, ResponseMessage, SearchSchema
+
 
 '''
 @api.get("/add")
@@ -13,7 +14,6 @@ def add(request, a: int, b: int):
 
 @api.post("/companion_request/create", tags=["Companion Request"], response={200: CreateResponseMessage, 400: ResponseMessage, 403: ResponseMessage})
 def create(request, payload: CompanionRequestSchemaIn):
-    
     try: 
         data = payload.dict()
         object = CompanionRequest()
@@ -25,6 +25,7 @@ def create(request, payload: CompanionRequestSchemaIn):
         object.date = data["date"]
         object.title = data["title"]
         object.comment = data["comment"]
+        
         object.save()
         return 200, {"message": "Refakatçi yardım talebi başarıyla oluşturuldu.", "id": object.id}
 
@@ -49,7 +50,6 @@ def update(request, payload: CompanionRequestSchemaIn, companion_request_id: UUI
     data = payload.dict()
     
     object.owner = AppUser.objects.get(pk=data["owner"]["id"])
-    object.companion = AppUser.objects.get(pk=data["companion"]["id"])
     for attr, value in data.items():
         if(attr == "owner" or attr == "companion"):
             continue
@@ -62,8 +62,8 @@ def update(request, payload: CompanionRequestSchemaIn, companion_request_id: UUI
 @api.delete("/companion_request/{uuid:companion_request_id}", tags=["Companion Request"], response={200: ResponseMessage, 400: ResponseMessage, 403: ResponseMessage, 404: ResponseMessage})
 def delete(request, companion_request_id: UUID):
     object = CompanionRequest.objects.get(id=companion_request_id)
+    
     object.is_active = False
-
     object.save()
     return 200, {"message": "Refakatçi talebi silindi"}
 

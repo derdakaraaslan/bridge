@@ -17,7 +17,7 @@ class AppUserSchemaIn(ModelSchema):
         model_exclude = ["id", "user_permissions", "user_ptr", "username",
                          "groups", "is_active", "is_staff", "is_superuser", "date_joined", "last_login"
                          ]
-
+        
 
 class AppUserSchemaLogin(ModelSchema):
 
@@ -28,7 +28,8 @@ class AppUserSchemaLogin(ModelSchema):
 
 
 class AppUserSchemaOutLogin(ModelSchema):
-
+    token: str
+     
     class Config:
         model = AppUser
         model_exclude = ['password']

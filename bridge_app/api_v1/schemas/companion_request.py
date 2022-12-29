@@ -22,3 +22,5 @@ class CompanionRequestSchemaIn(ModelSchema):
     class Config:
         model = CompanionRequest
         model_exclude = ["id", "is_active", "companion"]
+
+
